@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantegning</title>
+
+    <style>
+        /* *** CSS Reset [TEMP: REMOVE ON UPLOAD] */
+        html,
+        body,
+        div,
+        span,
+        applet,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        acronym,
+        address,
+        big,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        img,
+        ins,
+        kbd,
+        q,
+        s,
+        samp,
+        small,
+        strike,
+        strong,
+        sub,
+        sup,
+        tt,
+        var,
+        b,
+        u,
+        i,
+        center,
+        dl,
+        dt,
+        dd,
+        ol,
+        ul,
+        li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        caption,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        td,
+        article,
+        aside,
+        canvas,
+        details,
+        embed,
+        figure,
+        figcaption,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        output,
+        ruby,
+        section,
+        summary,
+        time,
+        mark,
+        audio,
+        video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        blockquote,
+        q {
+            quotes: none;
+        }
+
+        blockquote:before,
+        blockquote:after,
+        q:before,
+        q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        /* *** topHeaderBanner */
+        #topHeaderBanner h1,
+        #topHeaderBanner h1 * {
+            font-size: 4rem;
+            line-height: 1.125;
+            max-width: 55%;
+            text-align: center;
+            color: #fff;
+            -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 25, 0.75));
+            filter: drop-shadow(0 0 8px rgba(0, 0, 25, 0.75));
+        }
+
+        #topHeaderBanner .top-header-container {
+            background-image: url("https://eurodan-huse.dk/media/10629/helstrupbakken_44_herning_u2.jpg?anchor=center&mode=crop&quality=70&width=1600&rnd=133259543320000000");
+            min-height: 700px;
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media screen and (max-width: 1400px) {
+
+            #topHeaderBanner h1,
+            #topHeaderBanner h1 * {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media screen and (max-width: 990px) {
+
+            #topHeaderBanner h1,
+            #topHeaderBanner h1 * {
+                font-size: 3rem;
+                line-height: 1;
+                max-width: 80%;
+            }
+
+            #topHeaderBanner .top-header-container {
+                min-height: 80vh;
+            }
+        }
+
+        @media screen and (max-width: 660px) {
+
+            #topHeaderBanner h1,
+            #topHeaderBanner h1 * {
+                font-size: 2rem;
+                line-height: 1;
+            }
+        }
+
+        /* *** filterButtons */
+        .select-filter {
+            position: relative;
+            font-family: Arial;
+        }
+
+        .select-filter select {
+            display: none;
+        }
+
+        .select-selected {
+            background-color: #001239;
+        }
+
+        .select-selected:after {
+            position: absolute;
+            content: "";
+            top: 28px;
+            right: 10px;
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            border-color: #fff transparent transparent transparent;
+        }
+
+        .select-selected.select-arrow-active:after {
+            border-color: transparent transparent #fff transparent;
+            top: 24px;
+        }
+
+        .select-filter-items div,
+        .select-selected {
+            color: #ffffff;
+            padding: 24px 16px;
+            border: 1px solid transparent;
+            border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+            cursor: pointer;
+            user-select: none;
+            font-weight: light;
+            font-size: 12px
+        }
+
+        .select-filter-items {
+            position: absolute;
+            background-color: #001239;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 99;
+        }
+
+        .select-hide {
+            display: none;
+        }
+
+        .select-filter-items div:hover,
+        .selected-similar {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        #filterButtons .filter-buttons-container {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem auto;
+        }
+
+        #filterButtons>div {
+            max-width: 1600px;
+            margin: 1rem auto;
+        }
+
+        #filterButtons .filter-buttons-container .select-filter {
+            width: 100%;
+        }
+
+        #filterButtons .filter-response-icon {
+            font-size: 12px;
+        }
+
+        #filterButtons .filter-response-label {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 10px 15px;
+            border: 1px solid #efefef;
+        }
+
+        #filterButtons .filter-response-label-reset {
+            background: #efefef;
+            padding: 10px 15px;
+        }
+
+        #filterButtons .filter-buttons-response {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        @media screen and (max-width: 990px) {
+            #filterButtons .filter-buttons-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+            .select-filter-items div, .select-selected {
+                padding: 15px 12px;
+            }
+            .select-selected:after {
+                top: 20px;
+            }
+            .select-selected.select-arrow-active:after {
+                top: 15px;
+            }
+        }
+        
+        #filterItems .filter-items-container {
+            max-width: 1600px;
+            margin: 4rem auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+        #filterItems .filter-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #efefef;
+            padding: 25px 10px;
+            gap: 1.5rem;
+        }
+        #filterItems .filter-item img {
+            max-height: 175px;
+            object-fit: contain;
+        }
+        #filterItems .filter-item-image-span {
+            text-align: center;
+        }
+        #filterItems .filter-item span {
+            width: 80%;
+        }
+        #filterItems .filter-item-name {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 1rem;
+        }
+        #filterItems table {
+            width: 100%;
+        }
+        #filterItems table * {
+            font-size: 14px;
+        }
+        #filterItems table td:nth-child(2) {
+            font-weight: bold;
+        }
+        #filterItems table td div {
+            margin-bottom: 5px;
+        }
+        #filterItems .filter-item-cta {
+            text-align: right;
+            margin-top: 1rem;
+        }
+        #filterItems .filter-item-cta a {
+            background-color: #0084ba;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+        @media screen and (max-width: 990px) {
+            #filterItems .filter-items-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media screen and (max-width: 660px) {
+            #filterItems .filter-items-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section id="topHeaderBanner">
+        <div class="top-header-container">
+            <h1>Gå på opdagelse i vores plantegninger</h1>
+        </div>
+    </section>
+
+    <section id="filterButtons">
+        <div class="filter-buttons-container">
+            <div class="select-filter">
+                <select id="selectHustype">
+                    <option value="0">Hustype</option>
+                    <option value="1">Hustype 1</option>
+                    <option value="2">Hustype 2</option>
+                    <option value="3">Hustype 3</option>
+                    <option value="4">Hustype 4</option>
+                    <option value="5">Osv</option>
+                </select>
+            </div>
+
+            <div class="select-filter">
+                <select id="selectTagtype">
+                    <option value="0">Tagtype</option>
+                    <option value="1">Tagtype 1</option>
+                    <option value="2">Tagtype 2</option>
+                    <option value="3">Tagtype 3</option>
+                    <option value="4">Tagtype 4</option>
+                    <option value="5">Osv</option>
+                </select>
+            </div>
+
+            <div class="select-filter">
+                <select id="selectKvadratmeter">
+                    <option value="0">Kvadratmeter</option>
+                    <option value="1">100-100</option>
+                    <option value="2">200-200</option>
+                    <option value="3">300-300</option>
+                    <option value="4">400-400</option>
+                    <option value="5">Osv</option>
+                </select>
+            </div>
+
+            <div class="select-filter">
+                <select id="selectAntalVærelser">
+                    <option value="0">Antal Værelser</option>
+                    <option value="1">100-100</option>
+                    <option value="2">200-200</option>
+                    <option value="3">300-300</option>
+                    <option value="4">400-400</option>
+                    <option value="5">Osv</option>
+                </select>
+            </div>
+
+            <div class="select-filter">
+                <select id="selectPlan">
+                    <option value="0">Plan</option>
+                    <option value="1">Plan 1</option>
+                    <option value="2">Plan 2</option>
+                    <option value="3">Plan 3</option>
+                    <option value="4">Plan 4</option>
+                    <option value="5">Osv</option>
+                </select>
+            </div>
+
+            <div class="select-filter">
+                <select id="selectDetaljer">
+                    <option value="0">Detaljer</option>
+                    <option value="1">Detaljer 1</option>
+                    <option value="2">Detaljer 2</option>
+                    <option value="3">Detaljer 3</option>
+                    <option value="4">Detaljer 4</option>
+                    <option value="5">Osv</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="filter-buttons-response">
+            <span class="">
+                <p><span class="filter-response-amount">0</span> match fundet</p>
+            </span>
+
+            <span class="filter-response-label">
+                <i class="filter-response-icon">╳</i>
+                <p>5 værelser</p>
+            </span>
+
+            <span class="filter-response-label filter-response-label-reset">
+                <p>Nulstil søgning</p>
+            </span>
+        </div>
+    </section>
+
+    <section id="filterItems">
+        <div class="filter-items-container">
+
+            <div class="filter-item">
+                <span class="filter-item-image-span">
+                    <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0" alt="">
+                </span>
+
+                <span>
+                    <div class="filter-item-name">L97</div>
+
+                    <div class="filter-item-properties">
+                        <table class="filter-item-table">
+                            <tbody>
+                                <tr>
+                                    <td><div>Type</div></td>
+                                    <td><div>Længehus</div></td>
+                                </tr>
+
+                                <tr>
+                                    <td><div>Kvadratmeter</div></td>
+                                    <td><div>179 m²</div></td>
+                                </tr>
+
+                                <tr>
+                                    <td><div>Værelser</div></td>
+                                    <td><div>5</div></td>
+                                </tr>
+
+                                <tr>
+                                    <td><div>Detaljer</div></td>
+                                    <td><div>Dobbelt carport</div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </span>
+
+                <span>
+                    <div class="filter-item-cta">
+                        <a href="#">Læs mere ➝</a>
+                    </div>
+                </span>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // *** Filter Buttons (select override)
+        var x, i, j, l, ll, selElmnt, a, b, c;
+        x = document.getElementsByClassName("select-filter");
+        l = x.length;
+        for (i = 0; i < l; i++) {
+            selElmnt = x[i].getElementsByTagName("select")[0];
+            ll = selElmnt.length;
+            a = document.createElement("DIV");
+            a.setAttribute("class", "select-selected");
+            a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+            x[i].appendChild(a);
+            b = document.createElement("DIV");
+            b.setAttribute("class", "select-filter-items select-hide");
+            for (j = 1; j < ll; j++) {
+                c = document.createElement("DIV");
+                c.innerHTML = selElmnt.options[j].innerHTML;
+                c.addEventListener("click", function (e) {
+                    var y, i, k, s, h, sl, yl;
+                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                    sl = s.length;
+                    h = this.parentNode.previousSibling;
+                    for (i = 0; i < sl; i++) {
+                        if (s.options[i].innerHTML == this.innerHTML) {
+                            s.selectedIndex = i;
+                            h.innerHTML = this.innerHTML;
+                            y = this.parentNode.getElementsByClassName("selected-similar");
+                            yl = y.length;
+                            for (k = 0; k < yl; k++) {
+                                y[k].removeAttribute("class");
+                            }
+                            this.setAttribute("class", "selected-similar");
+                            break;
+                        }
+                    }
+                    h.click();
+                });
+                b.appendChild(c);
+            }
+            x[i].appendChild(b);
+            a.addEventListener("click", function (e) {
+                e.stopPropagation();
+                closeAllSelect(this);
+                this.nextSibling.classList.toggle("select-hide");
+                this.classList.toggle("select-arrow-active");
+            });
+        }
+        function closeAllSelect(elmnt) {
+            var x, y, i, xl, yl, arrNo = [];
+            x = document.getElementsByClassName("select-filter-items");
+            y = document.getElementsByClassName("select-selected");
+            xl = x.length;
+            yl = y.length;
+            for (i = 0; i < yl; i++) {
+                if (elmnt == y[i]) {
+                    arrNo.push(i)
+                } else {
+                    y[i].classList.remove("select-arrow-active");
+                }
+            }
+            for (i = 0; i < xl; i++) {
+                if (arrNo.indexOf(i)) {
+                    x[i].classList.add("select-hide");
+                }
+            }
+        }
+
+        document.addEventListener("click", closeAllSelect);
+
+        // *** CLone items [TEMP: REMOVE ON UPLOAD]
+        function cloneFilterItem() {
+            const filterItem = document.querySelector('.filter-item');
+            const container = document.querySelector('.filter-items-container');
+
+            for (let i = 0; i < 6; i++) {
+                const clone = filterItem.cloneNode(true); 
+                container.appendChild(clone);
+            }
+        }
+
+        window.onload = cloneFilterItem;
+    </script>
+</body>
+
+</html>
