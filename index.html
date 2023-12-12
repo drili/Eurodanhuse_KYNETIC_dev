@@ -677,12 +677,10 @@
                     var changeEvent = new Event("change");
                     select.dispatchEvent(changeEvent);
 
-                    // Reset the corresponding select-selected element
                     var selectFilter = select.parentElement;
                     var selectedElement = selectFilter.querySelector(".select-selected");
                     selectedElement.innerHTML = select.options[0].text;
 
-                    // Pass the id to updateFilterLabels
                     var selectId = select.id;
                     // updateFilterLabels(selectId, select.options[0].text);
                     filterResponseLabelSection.innerHTML = "";
