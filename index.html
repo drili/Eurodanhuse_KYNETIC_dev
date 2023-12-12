@@ -282,14 +282,28 @@
         }
 
         #filterButtons .filter-response-label-reset {
-            background: #efefef;
-            padding: 10px 15px;
+            padding: 0;
+        }
+
+        #filterButtons .filter-response-label-section {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        #filterButtons .filter-response-label-section i {
+            display: none;
         }
 
         #filterButtons .filter-buttons-response {
-            display: flex;
+            display: none;
             gap: 1.5rem;
             align-items: center;
+        }
+
+        #filterButtons #resetFilter {
+            background: #efefef;
+            padding: 10px 15px;
+            border: none;
         }
 
         @media screen and (max-width: 990px) {
@@ -297,63 +311,82 @@
                 display: grid;
                 grid-template-columns: 1fr 1fr;
             }
-            .select-filter-items div, .select-selected {
+
+            .select-filter-items div,
+            .select-selected {
                 padding: 15px 12px;
             }
+
             .select-selected:after {
                 top: 20px;
             }
+
             .select-selected.select-arrow-active:after {
                 top: 15px;
             }
         }
-        
+
         #filterItems .filter-items-container {
             max-width: 1600px;
             margin: 4rem auto;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 1rem;
+            gap: 0.5rem;
         }
+
         #filterItems .filter-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             background: #efefef;
-            padding: 25px 10px;
+            padding: 45px 10px;
             gap: 1.5rem;
         }
+
         #filterItems .filter-item img {
             max-height: 175px;
             object-fit: contain;
         }
+
         #filterItems .filter-item-image-span {
             text-align: center;
         }
+
         #filterItems .filter-item span {
             width: 80%;
         }
+
         #filterItems .filter-item-name {
             font-weight: bold;
             font-size: 20px;
             margin-bottom: 1rem;
         }
+
         #filterItems table {
             width: 100%;
         }
+
         #filterItems table * {
             font-size: 14px;
         }
+
         #filterItems table td:nth-child(2) {
             font-weight: bold;
         }
+
         #filterItems table td div {
             margin-bottom: 5px;
         }
+
         #filterItems .filter-item-cta {
             text-align: right;
             margin-top: 1rem;
         }
+
+        #filterButtons button:hover {
+            cursor: pointer;
+        }
+
         #filterItems .filter-item-cta a {
             background-color: #0084ba;
             color: #fff;
@@ -362,6 +395,7 @@
             font-size: 12px;
             border-radius: 5px;
         }
+
         @media screen and (max-width: 990px) {
             #filterItems .filter-items-container {
                 grid-template-columns: 1fr 1fr;
@@ -421,10 +455,10 @@
             <div class="select-filter">
                 <select id="selectAntalVærelser">
                     <option value="0">Antal Værelser</option>
-                    <option value="1">100-100</option>
-                    <option value="2">200-200</option>
-                    <option value="3">300-300</option>
-                    <option value="4">400-400</option>
+                    <option value="1">1-5</option>
+                    <option value="2">5-10</option>
+                    <option value="3">10-15</option>
+                    <option value="4">15-20</option>
                     <option value="5">Osv</option>
                 </select>
             </div>
@@ -457,13 +491,12 @@
                 <p><span class="filter-response-amount">0</span> match fundet</p>
             </span>
 
-            <span class="filter-response-label">
-                <i class="filter-response-icon">╳</i>
-                <p>5 værelser</p>
-            </span>
+            <div class="filter-response-label-section">
+
+            </div>
 
             <span class="filter-response-label filter-response-label-reset">
-                <p>Nulstil søgning</p>
+                <button id="resetFilter">Nulstil søgning</button>
             </span>
         </div>
     </section>
@@ -473,7 +506,8 @@
 
             <div class="filter-item">
                 <span class="filter-item-image-span">
-                    <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0" alt="">
+                    <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
+                        alt="">
                 </span>
 
                 <span>
@@ -483,23 +517,39 @@
                         <table class="filter-item-table">
                             <tbody>
                                 <tr>
-                                    <td><div>Type</div></td>
-                                    <td><div>Længehus</div></td>
+                                    <td>
+                                        <div>Type</div>
+                                    </td>
+                                    <td>
+                                        <div>Længehus</div>
+                                    </td>
                                 </tr>
 
                                 <tr>
-                                    <td><div>Kvadratmeter</div></td>
-                                    <td><div>179 m²</div></td>
+                                    <td>
+                                        <div>Kvadratmeter</div>
+                                    </td>
+                                    <td>
+                                        <div>179 m²</div>
+                                    </td>
                                 </tr>
 
                                 <tr>
-                                    <td><div>Værelser</div></td>
-                                    <td><div>5</div></td>
+                                    <td>
+                                        <div>Værelser</div>
+                                    </td>
+                                    <td>
+                                        <div>5</div>
+                                    </td>
                                 </tr>
 
                                 <tr>
-                                    <td><div>Detaljer</div></td>
-                                    <td><div>Dobbelt carport</div></td>
+                                    <td>
+                                        <div>Detaljer</div>
+                                    </td>
+                                    <td>
+                                        <div>Dobbelt carport</div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -517,86 +567,142 @@
     </section>
 
     <script>
-        // *** Filter Buttons (select override)
-        var x, i, j, l, ll, selElmnt, a, b, c;
-        x = document.getElementsByClassName("select-filter");
-        l = x.length;
-        for (i = 0; i < l; i++) {
-            selElmnt = x[i].getElementsByTagName("select")[0];
-            ll = selElmnt.length;
-            a = document.createElement("DIV");
-            a.setAttribute("class", "select-selected");
-            a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-            x[i].appendChild(a);
-            b = document.createElement("DIV");
-            b.setAttribute("class", "select-filter-items select-hide");
-            for (j = 1; j < ll; j++) {
-                c = document.createElement("DIV");
-                c.innerHTML = selElmnt.options[j].innerHTML;
-                c.addEventListener("click", function (e) {
-                    var y, i, k, s, h, sl, yl;
-                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-                    sl = s.length;
-                    h = this.parentNode.previousSibling;
-                    for (i = 0; i < sl; i++) {
-                        if (s.options[i].innerHTML == this.innerHTML) {
-                            s.selectedIndex = i;
-                            h.innerHTML = this.innerHTML;
-                            y = this.parentNode.getElementsByClassName("selected-similar");
-                            yl = y.length;
-                            for (k = 0; k < yl; k++) {
-                                y[k].removeAttribute("class");
+        document.addEventListener("DOMContentLoaded", function () {
+            // *** Filter Buttons (select override)
+            var x, i, j, l, ll, selElmnt, a, b, c;
+            x = document.getElementsByClassName("select-filter");
+            l = x.length;
+            for (i = 0; i < l; i++) {
+                selElmnt = x[i].getElementsByTagName("select")[0];
+                ll = selElmnt.length;
+                a = document.createElement("DIV");
+                a.setAttribute("class", "select-selected");
+                a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+                x[i].appendChild(a);
+                b = document.createElement("DIV");
+                b.setAttribute("class", "select-filter-items select-hide");
+                for (j = 1; j < ll; j++) {
+                    c = document.createElement("DIV");
+                    c.innerHTML = selElmnt.options[j].innerHTML;
+                    c.addEventListener("click", function (e) {
+                        var y, i, k, s, h, sl, yl;
+                        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                        sl = s.length;
+                        h = this.parentNode.previousSibling;
+
+                        var parentSiblingID = this.parentNode.previousSibling.parentNode.firstElementChild.id;
+
+                        for (i = 0; i < sl; i++) {
+                            if (s.options[i].innerHTML == this.innerHTML) {
+                                s.selectedIndex = i;
+                                h.innerHTML = this.innerHTML;
+                                y = this.parentNode.getElementsByClassName("selected-similar");
+                                yl = y.length;
+                                for (k = 0; k < yl; k++) {
+                                    y[k].removeAttribute("class");
+                                }
+                                this.setAttribute("class", "selected-similar");
+
+                                updateFilterLabels(parentSiblingID, y[0].innerHTML)
+                                break;
                             }
-                            this.setAttribute("class", "selected-similar");
-                            break;
                         }
-                    }
-                    h.click();
+                        h.click();
+                    });
+                    b.appendChild(c);
+                }
+                x[i].appendChild(b);
+                a.addEventListener("click", function (e) {
+
+                    e.stopPropagation();
+                    closeAllSelect(this);
+                    this.nextSibling.classList.toggle("select-hide");
+                    this.classList.toggle("select-arrow-active");
                 });
-                b.appendChild(c);
             }
-            x[i].appendChild(b);
-            a.addEventListener("click", function (e) {
-                e.stopPropagation();
-                closeAllSelect(this);
-                this.nextSibling.classList.toggle("select-hide");
-                this.classList.toggle("select-arrow-active");
-            });
-        }
-        function closeAllSelect(elmnt) {
-            var x, y, i, xl, yl, arrNo = [];
-            x = document.getElementsByClassName("select-filter-items");
-            y = document.getElementsByClassName("select-selected");
-            xl = x.length;
-            yl = y.length;
-            for (i = 0; i < yl; i++) {
-                if (elmnt == y[i]) {
-                    arrNo.push(i)
+
+            function closeAllSelect(elmnt) {
+                var x, y, i, xl, yl, arrNo = [];
+                x = document.getElementsByClassName("select-filter-items");
+                y = document.getElementsByClassName("select-selected");
+                xl = x.length;
+                yl = y.length;
+                for (i = 0; i < yl; i++) {
+                    if (elmnt == y[i]) {
+                        arrNo.push(i)
+                    } else {
+                        y[i].classList.remove("select-arrow-active");
+                    }
+                }
+                for (i = 0; i < xl; i++) {
+                    if (arrNo.indexOf(i)) {
+                        x[i].classList.add("select-hide");
+                    }
+                }
+            }
+
+            document.addEventListener("click", closeAllSelect);
+
+            // *** Update filter labels
+            function updateFilterLabels(id, value) {
+                var htmlLabel = `<span id='labelResponseID_${id}' class="filter-response-label"><i class="filter-response-icon">╳</i><p>${value}</p></span>`;
+                const filterResponseSection = document.querySelector(".filter-response-label-section");
+                const filterButtonsResponse = document.querySelector(".filter-buttons-response");
+                if (document.querySelector(`#labelResponseID_${id}`) !== null) {
+                    document.querySelector(`#labelResponseID_${id}`).remove();
+                }
+
+                filterResponseSection.insertAdjacentHTML('beforeend', htmlLabel);
+
+                if (filterResponseSection.hasChildNodes()) {
+                    filterButtonsResponse.style.display = "flex";
                 } else {
-                    y[i].classList.remove("select-arrow-active");
+                    filterButtonsResponse.style.display = "none";
+                }
+
+                console.log(id, value);
+            }
+
+            const resetFilterButton = document.querySelector("#resetFilter");
+
+            resetFilterButton.addEventListener("click", function (e) {
+                console.log("CLICK");
+                var filterButtonsContainer = document.querySelector(".filter-buttons-container");
+                var selectElements = filterButtonsContainer.querySelectorAll("select");
+                var filterResponseLabelSection = document.querySelector(".filter-response-label-section");
+                var filterResponseSection = document.querySelector(".filter-buttons-response");
+
+                selectElements.forEach(function (select) {
+                    select.selectedIndex = 0;
+                    var changeEvent = new Event("change");
+                    select.dispatchEvent(changeEvent);
+
+                    // Reset the corresponding select-selected element
+                    var selectFilter = select.parentElement;
+                    var selectedElement = selectFilter.querySelector(".select-selected");
+                    selectedElement.innerHTML = select.options[0].text;
+
+                    // Pass the id to updateFilterLabels
+                    var selectId = select.id;
+                    // updateFilterLabels(selectId, select.options[0].text);
+                    filterResponseLabelSection.innerHTML = "";
+                    filterResponseSection.style.display = "none";
+                });
+            });
+
+            // *** CLone items [TEMP: REMOVE ON UPLOAD]
+            function cloneFilterItem() {
+                const filterItem = document.querySelector('.filter-item');
+                const container = document.querySelector('.filter-items-container');
+
+                for (let i = 0; i < 6; i++) {
+                    const clone = filterItem.cloneNode(true);
+                    container.appendChild(clone);
                 }
             }
-            for (i = 0; i < xl; i++) {
-                if (arrNo.indexOf(i)) {
-                    x[i].classList.add("select-hide");
-                }
-            }
-        }
 
-        document.addEventListener("click", closeAllSelect);
-
-        // *** CLone items [TEMP: REMOVE ON UPLOAD]
-        function cloneFilterItem() {
-            const filterItem = document.querySelector('.filter-item');
-            const container = document.querySelector('.filter-items-container');
-
-            for (let i = 0; i < 6; i++) {
-                const clone = filterItem.cloneNode(true); 
-                container.appendChild(clone);
-            }
-        }
-
-        window.onload = cloneFilterItem;
+            window.onload = cloneFilterItem;
+        })
     </script>
 </body>
 
