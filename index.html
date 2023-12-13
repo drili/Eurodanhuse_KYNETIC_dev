@@ -643,8 +643,13 @@
 
             document.addEventListener("click", closeAllSelect);
 
+            const filterActiveObject = {};
+
             // *** Update filter labels
             function updateFilterLabels(id, value) {
+                const filterSelector = `[data-${id}="${value}"]`;
+                const filterSelectorId = id.trim().toLowerCase();
+
                 var htmlLabel = `<span id='labelResponseID_${id}' class="filter-response-label"><i class="filter-response-icon">╳</i><p>${value}</p></span>`;
                 const filterResponseSection = document.querySelector(".filter-response-label-section");
                 const filterButtonsResponse = document.querySelector(".filter-buttons-response");
@@ -660,6 +665,29 @@
                     filterButtonsResponse.style.display = "none";
                 }
 
+                // *** Filter items
+                if (filterSelectorId in filterActiveObject) {
+                    delete filterActiveObject[filterSelectorId];
+                }
+                
+                filterActiveObject[filterSelectorId] = filterSelector;
+
+                const filterItems = document.querySelectorAll('.filter-item');
+                var filterItemsCounter = 0;
+                filterItems.forEach(item => {
+                    const shouldBeDisplayed = Object.values(filterActiveObject).every(filter => item.matches(filter));
+                    item.style.display = shouldBeDisplayed ? 'block' : 'none';
+
+                    if (shouldBeDisplayed) {
+                        filterItemsCounter++;
+                    }
+                });
+
+                // *** Matches found 
+                const filterResponseAmount = document.querySelector(".filter-response-amount");
+                filterResponseAmount.innerHTML = filterItemsCounter;
+
+                console.log({filterActiveObject})
                 console.log(id, value);
             }
 
@@ -686,17 +714,69 @@
                     filterResponseLabelSection.innerHTML = "";
                     filterResponseSection.style.display = "none";
                 });
+
+                // *** Reset filter object:
+                Object.keys(filterActiveObject).forEach(key => delete filterActiveObject[key]);
+                const filterItems = document.querySelectorAll('.filter-item');
+                
+                filterItems.forEach(item => {
+                    item.style.display = "block"
+                });
+                console.log({filterActiveObject});
             });
 
             // *** CLone items [TEMP: REMOVE ON UPLOAD]
             function cloneFilterItem() {
                 const filterItem = document.querySelector('.filter-item');
                 const container = document.querySelector('.filter-items-container');
-
-                for (let i = 0; i < 6; i++) {
+                const randomNumber = Math.floor(Math.random() * (30 - 15) + 15);
+                
+                for (let i = 0; i < randomNumber; i++) {
                     const clone = filterItem.cloneNode(true);
+
+                    clone.setAttribute('data-selectHustype', getRandomValueHustype());
+                    clone.setAttribute('data-selectTagtype', getRandomValueTagtype());
+                    clone.setAttribute('data-selectKvadratmeter', getRandomValueKvadratmeter());
+                    clone.setAttribute('data-selectAntalVærelser', getRandomValueAntalRooms());
+                    clone.setAttribute('data-selectAntalVærelser', getRandomValuePlan());
+                    clone.setAttribute('data-selectDetaljer', getRandomValueDetaljer());
+
                     container.appendChild(clone);
                 }
+            }
+
+            function getRandomValueHustype() {
+                const hustypeArray = ['Hustype 1', 'Hustype 2', 'Hustype 3', 'Hustype 4'];
+                const randomIndex = Math.floor(Math.random() * hustypeArray.length);
+                return hustypeArray[randomIndex]
+            }
+
+            function getRandomValueTagtype() {
+                const hustypeArray = ['Tagtype 1', 'Tagtype 2', 'Tagtype 3', 'Tagtype 4'];
+                const randomIndex = Math.floor(Math.random() * hustypeArray.length);
+                return hustypeArray[randomIndex]
+            }
+
+            function getRandomValueKvadratmeter() {
+                const hustypeArray = ['100-100', '200-200', '300-300', '400-400'];
+                const randomIndex = Math.floor(Math.random() * hustypeArray.length);
+                return hustypeArray[randomIndex]
+            }
+
+            function getRandomValueAntalRooms() {
+                const hustypeArray = ['1-5', '5-10', '10-15', '15-20'];
+                const randomIndex = Math.floor(Math.random() * hustypeArray.length);
+                return hustypeArray[randomIndex]
+            }
+
+            function getRandomValuePlan() {
+                const hustypeArray = ['Plan 1', 'Plan 2', 'Plan 3', 'Plan 4'];
+                const randomIndex = Math.floor(Math.random() * hustypeArray.length);
+                return hustypeArray[randomIndex]
+            }
+
+            function getRandomValueDetaljer() {
+                return 0;
             }
 
             window.onload = cloneFilterItem;
