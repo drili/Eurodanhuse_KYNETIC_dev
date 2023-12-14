@@ -96,7 +96,6 @@
             font: inherit;
             vertical-align: baseline;
         }
-
         article,
         aside,
         details,
@@ -110,21 +109,17 @@
         section {
             display: block;
         }
-
         body {
             line-height: 1;
         }
-
         ol,
         ul {
             list-style: none;
         }
-
         blockquote,
         q {
             quotes: none;
         }
-
         blockquote:before,
         blockquote:after,
         q:before,
@@ -132,11 +127,11 @@
             content: '';
             content: none;
         }
-
         table {
             border-collapse: collapse;
             border-spacing: 0;
         }
+        /* *** Reset END */
 
         /* *** topHeaderBanner */
         #topHeaderBanner h1,
@@ -155,7 +150,6 @@
             min-height: 700px;
             background-size: cover;
             background-position: center;
-
             display: flex;
             align-items: center;
             justify-content: center;
@@ -745,6 +739,7 @@
                 }
             }
 
+            // *** Random Values [TEMP: REMOVE ON UPLOAD]
             function getRandomValueHustype() {
                 const hustypeArray = ['Hustype 1', 'Hustype 2', 'Hustype 3', 'Hustype 4'];
                 const randomIndex = Math.floor(Math.random() * hustypeArray.length);
