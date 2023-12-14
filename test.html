@@ -430,8 +430,25 @@
         .options-slider {
             padding: 10px 0;
         }
+
         .options-slider .ui-slider {
             margin-bottom: 10px;
+        }
+
+        #filterItems .filter-item.show-item-kvadratmeter {
+            display: block;
+        }
+
+        #filterItems .filter-item.hide-item-kvadratmeter {
+            display: none;
+        }
+
+        #filterItems .filter-item.show-item-antalværelser {
+            display: block;
+        }
+
+        #filterItems .filter-item.hide-item-antalværelser {
+            display: none;
         }
     </style>
 
@@ -485,7 +502,7 @@
                     <div class="slider-container">
                         <!-- <label for="valueSlider">Choose a range</label> -->
                         <div id="valueSlider_Kvadratmeter"></div>
-                        <p>Valgte kvadratmeter: <span id="selectedRange_Kvadratmeter">80 m² - 250 m²</span></p>
+                        <p>Valgte kvadratmeter: <span id="selectedRange_Kvadratmeter">80 - 250</span></p>
                     </div>
                 </div>
             </div>
@@ -556,6 +573,14 @@
                 </span> -->
             </div>
 
+            <div class="filter-response-label-section-kvadratmeter">
+
+            </div>
+
+            <div class="filter-response-label-section-antalværelser">
+
+            </div>
+
             <span class="filter-response-label filter-response-label-reset">
                 <button id="resetFilter">Nulstil søgning</button>
             </span>
@@ -566,16 +591,16 @@
     <section id="filterItems">
         <div class="filter-items-container">
 
-            <div class="filter-item" class="filter-item" data-hustype="Længehuse" data-kvadratmeter="179" data-antalværelser="5"
-            data-detaljer="Dobbelt carport">
+            <div class="filter-item" class="filter-item" data-hustype="Længehuse" data-kvadratmeter="179"
+                data-antalværelser="5" data-detaljer="Dobbelt carport">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
                 </span>
-            
+
                 <span>
                     <div class="filter-item-name">L97</div>
-            
+
                     <div class="filter-item-properties">
                         <table class="filter-item-table">
                             <tbody>
@@ -587,7 +612,7 @@
                                         <div>Længehus</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Kvadratmeter</div>
@@ -596,7 +621,7 @@
                                         <div>179 m²</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Værelser</div>
@@ -605,7 +630,7 @@
                                         <div>5</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Detaljer</div>
@@ -618,7 +643,7 @@
                         </table>
                     </div>
                 </span>
-            
+
                 <span>
                     <div class="filter-item-cta">
                         <a href="#">Læs mere ➝</a>
@@ -627,15 +652,15 @@
             </div>
 
             <div class="filter-item" data-hustype="Vinkelhuse" data-kvadratmeter="200" data-antalværelser="5"
-            data-detaljer="Garage">
+                data-detaljer="Garage">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
                 </span>
-            
+
                 <span>
                     <div class="filter-item-name">L97</div>
-            
+
                     <div class="filter-item-properties">
                         <table class="filter-item-table">
                             <tbody>
@@ -647,7 +672,7 @@
                                         <div>Længehus</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Kvadratmeter</div>
@@ -656,7 +681,7 @@
                                         <div>179 m²</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Værelser</div>
@@ -665,7 +690,7 @@
                                         <div>5</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Detaljer</div>
@@ -678,7 +703,7 @@
                         </table>
                     </div>
                 </span>
-            
+
                 <span>
                     <div class="filter-item-cta">
                         <a href="#">Læs mere ➝</a>
@@ -687,15 +712,15 @@
             </div>
 
             <div class="filter-item" data-hustype="H-huse" data-kvadratmeter="150" data-antalværelser="6"
-            data-detaljer="Multirum">
+                data-detaljer="Multirum">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
                 </span>
-            
+
                 <span>
                     <div class="filter-item-name">L97</div>
-            
+
                     <div class="filter-item-properties">
                         <table class="filter-item-table">
                             <tbody>
@@ -707,7 +732,7 @@
                                         <div>Længehus</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Kvadratmeter</div>
@@ -716,7 +741,7 @@
                                         <div>179 m²</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Værelser</div>
@@ -725,7 +750,7 @@
                                         <div>5</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Detaljer</div>
@@ -738,7 +763,7 @@
                         </table>
                     </div>
                 </span>
-            
+
                 <span>
                     <div class="filter-item-cta">
                         <a href="#">Læs mere ➝</a>
@@ -747,15 +772,15 @@
             </div>
 
             <div class="filter-item" data-hustype="Længehuse" data-kvadratmeter="180" data-antalværelser="10"
-            data-detaljer="Overdækket terrasse">
+                data-detaljer="Overdækket terrasse">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
                 </span>
-            
+
                 <span>
                     <div class="filter-item-name">L97</div>
-            
+
                     <div class="filter-item-properties">
                         <table class="filter-item-table">
                             <tbody>
@@ -767,7 +792,7 @@
                                         <div>Længehus</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Kvadratmeter</div>
@@ -776,7 +801,7 @@
                                         <div>179 m²</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Værelser</div>
@@ -785,7 +810,7 @@
                                         <div>5</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Detaljer</div>
@@ -798,7 +823,7 @@
                         </table>
                     </div>
                 </span>
-            
+
                 <span>
                     <div class="filter-item-cta">
                         <a href="#">Læs mere ➝</a>
@@ -806,16 +831,16 @@
                 </span>
             </div>
 
-            <div class="filter-item" data-hustype="Vinkelhuse" data-kvadratmeter="220" data-antalværelser="5"
-            data-detaljer="Walk-in">
+            <div class="filter-item" data-hustype="Vinkelhuse" data-kvadratmeter="220" data-antalværelser="10"
+                data-detaljer="Walk-in">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
                 </span>
-            
+
                 <span>
                     <div class="filter-item-name">L97</div>
-            
+
                     <div class="filter-item-properties">
                         <table class="filter-item-table">
                             <tbody>
@@ -827,7 +852,7 @@
                                         <div>Længehus</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Kvadratmeter</div>
@@ -836,7 +861,7 @@
                                         <div>179 m²</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Værelser</div>
@@ -845,7 +870,7 @@
                                         <div>5</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Detaljer</div>
@@ -858,7 +883,7 @@
                         </table>
                     </div>
                 </span>
-            
+
                 <span>
                     <div class="filter-item-cta">
                         <a href="#">Læs mere ➝</a>
@@ -867,15 +892,15 @@
             </div>
 
             <div class="filter-item" data-hustype="Knækhuse" data-kvadratmeter="160" data-antalværelser="5"
-            data-detaljer="Badekar">
+                data-detaljer="Badekar">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
                 </span>
-            
+
                 <span>
                     <div class="filter-item-name">L97</div>
-            
+
                     <div class="filter-item-properties">
                         <table class="filter-item-table">
                             <tbody>
@@ -887,7 +912,7 @@
                                         <div>Længehus</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Kvadratmeter</div>
@@ -896,7 +921,7 @@
                                         <div>179 m²</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Værelser</div>
@@ -905,7 +930,7 @@
                                         <div>5</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Detaljer</div>
@@ -918,7 +943,7 @@
                         </table>
                     </div>
                 </span>
-            
+
                 <span>
                     <div class="filter-item-cta">
                         <a href="#">Læs mere ➝</a>
@@ -927,15 +952,15 @@
             </div>
 
             <div class="filter-item" data-hustype="H-huse" data-kvadratmeter="190" data-antalværelser="6"
-            data-detaljer="Gennemgående køkken alrum">
+                data-detaljer="Gennemgående køkken alrum">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
                 </span>
-            
+
                 <span>
                     <div class="filter-item-name">L97</div>
-            
+
                     <div class="filter-item-properties">
                         <table class="filter-item-table">
                             <tbody>
@@ -947,7 +972,7 @@
                                         <div>Længehus</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Kvadratmeter</div>
@@ -956,7 +981,7 @@
                                         <div>179 m²</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Værelser</div>
@@ -965,7 +990,7 @@
                                         <div>5</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Detaljer</div>
@@ -978,7 +1003,7 @@
                         </table>
                     </div>
                 </span>
-            
+
                 <span>
                     <div class="filter-item-cta">
                         <a href="#">Læs mere ➝</a>
@@ -987,15 +1012,15 @@
             </div>
 
             <div class="filter-item" data-hustype="Længehuse" data-kvadratmeter="199" data-antalværelser="9"
-            data-detaljer="Dobbelt brus">
+                data-detaljer="Dobbelt brus">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
                 </span>
-            
+
                 <span>
                     <div class="filter-item-name">L97</div>
-            
+
                     <div class="filter-item-properties">
                         <table class="filter-item-table">
                             <tbody>
@@ -1007,7 +1032,7 @@
                                         <div>Længehus</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Kvadratmeter</div>
@@ -1016,7 +1041,7 @@
                                         <div>179 m²</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Værelser</div>
@@ -1025,7 +1050,7 @@
                                         <div>5</div>
                                     </td>
                                 </tr>
-            
+
                                 <tr>
                                     <td>
                                         <div>Detaljer</div>
@@ -1038,7 +1063,7 @@
                         </table>
                     </div>
                 </span>
-            
+
                 <span>
                     <div class="filter-item-cta">
                         <a href="#">Læs mere ➝</a>
@@ -1055,6 +1080,8 @@
     <script>
         $(document).ready(function () {
             const arrayValuesResponse = [];
+            const arrayValuesReponseKvadratmeter = [];
+            const arrayValuesReponseAntalVærelser = [];
 
             // *** Select options
             $(".select-box").on("click", function (event) {
@@ -1078,7 +1105,7 @@
                 }).get();
 
                 // Add slider values to selectedItems
-                selectedItems.push($("#selectedRange_Værelser").text(), $("#selectedRange_Kvadratmeter").text());
+                // selectedItems.push($("#selectedRange_Værelser").text(), $("#selectedRange_Kvadratmeter").text());
 
                 // Display the selected items
                 console.log(selectedItems);
@@ -1099,11 +1126,11 @@
                 } else {
                     $("#filterButtonsResponse .filter-buttons-container").hide()
                 }
-                
+
                 // *** Update filter count
                 const filterAmount = $(".filter-response-amount");
                 const filterAmountValue = $(".filter-item:visible").length;
-                
+
                 filterAmount.text(filterAmountValue);
             }
 
@@ -1123,7 +1150,8 @@
                 step: 1,
                 slide: function (event, ui) {
                     $("#selectedRange_Værelser").text(ui.values[0] + " - " + ui.values[1]);
-                    updateSelectedItems();
+                    // updateSelectedItems();
+                    updateSelectedItemsAntalværelser(event, ui);
                 }
             });
 
@@ -1135,9 +1163,88 @@
                 step: 5,
                 slide: function (event, ui) {
                     $("#selectedRange_Kvadratmeter").text(ui.values[0] + " - " + ui.values[1]);
-                    updateSelectedItems();
+                    // updateSelectedItems("kvadratmeter");
+                    updateSelectedItemsKvadratmeter(event, ui);
                 }
             });
+
+            function updateSelectedItemsKvadratmeter(event, ui) {
+                arrayValuesReponseKvadratmeter.length = 0;
+                if ($(".filter-active-kvadratmeter")[0]) {
+                    var visibleItems = $(".filter-item.show-item-kvadratmeter, .filter-item.hide-item-kvadratmeter");
+                } else {
+                    var visibleItems = $(".filter-item:visible");
+                    $(".filter-items-container").addClass("filter-active-kvadratmeter")
+                }
+
+                visibleItems.each(function () {
+                    var item = $(this);
+                    var sliderValue = item.data("kvadratmeter");
+                    // $(this).addClass("hide-item-kvadratmeter");
+
+                    var minRange = ui.values[0];
+                    var maxRange = ui.values[1];
+
+                    var sliderTextKvadrat = `${minRange} - ${maxRange}`;
+                    var labelHtml = `
+                        <span id='' class="filter-response-label">
+                            <i class="filter-response-icon">×</i>
+                            <p>Kvadratmeter: ${sliderTextKvadrat}</p>
+                        </span>
+                    `;
+                    $(".filter-response-label-section-kvadratmeter").html(labelHtml);
+
+                    if (sliderValue >= minRange && sliderValue <= maxRange) {
+                        console.log(`SHOW`);
+                        $(this).addClass("show-item-kvadratmeter");
+                        $(this).removeClass("hide-item-kvadratmeter");
+                        arrayValuesReponseKvadratmeter.push(item);
+                    } else {
+                        console.log(`SHOW`);
+                        $(this).addClass("hide-item-kvadratmeter");
+                        $(this).removeClass("show-item-kvadratmeter");
+                    }
+                });
+            }
+
+            function updateSelectedItemsAntalværelser(event, ui) {
+                arrayValuesReponseAntalVærelser.length = 0;
+                if ($(".filter-active-antalværelser")[0]) {
+                    var visibleItems = $(".filter-item.show-item-antalværelser, .filter-item.hide-item-antalværelser");
+                } else {
+                    var visibleItems = $(".filter-item:visible");
+                    $(".filter-items-container").addClass("filter-active-antalværelser")
+                }
+
+                visibleItems.each(function () {
+                    var item = $(this);
+                    var sliderValue = item.data("antalværelser");
+                    // $(this).addClass("hide-item-antalværelser");
+
+                    var minRange = ui.values[0];
+                    var maxRange = ui.values[1];
+
+                    var sliderAntalVærelser = `${minRange} - ${maxRange}`;
+                    var labelHtml = `
+                        <span id='' class="filter-response-label">
+                            <i class="filter-response-icon">×</i>
+                            <p>Antal værelser: ${sliderAntalVærelser}</p>
+                        </span>
+                    `;
+                    $(".filter-response-label-section-antalværelser").html(labelHtml);
+
+                    if (sliderValue >= minRange && sliderValue <= maxRange) {
+                        console.log(`SHOW`);
+                        $(this).addClass("show-item-antalværelser");
+                        $(this).removeClass("hide-item-antalværelser");
+                        arrayValuesReponseAntalVærelser.push(item);
+                    } else {
+                        console.log(`SHOW`);
+                        $(this).addClass("hide-item-antalværelser");
+                        $(this).removeClass("show-item-antalværelser");
+                    }
+                });
+            }
 
             // *** Update response labels
             function updateResponseLabels(selectedItems) {
@@ -1164,6 +1271,12 @@
                 $("#valueSlider_Kvadratmeter").slider("values", [80, 250]);
 
                 updateSelectedItems();
+                $(".filter-item").show()
+                $(".filter-items-container").removeClass("filter-active-kvadratmeter");
+                $(".filter-items-container").removeClass("filter-active-antalværelser");
+                $(".filter-item").each(function () {
+                    $(this).removeClass("show-item-kvadratmeter hide-item-kvadratmeter show-item-antalværelser hide-item-antalværelser");
+                });
             }
 
             $("#resetFilter").click(function () {
@@ -1172,18 +1285,20 @@
 
             // *** Filter items
             function filterItems() {
+                // TODO: When kvadratmeter or antalværelser is applied, reset them.
+
                 var selectedItems = $(".option.selected").map(function () {
                     return { property: $(this).parent().prev(".select-box").find(".selected-items").text(), value: $(this).text() };
                 }).get();
 
                 // Add slider values to selectedItems
-                selectedItems.push(
-                    { property: "Antal værelser", value: $("#selectedRange_Værelser").text() },
-                    { property: "Kvadratmeter", value: $("#selectedRange_Kvadratmeter").text() }
-                );
+                // selectedItems.push(
+                //     { property: "Antal værelser", value: $("#selectedRange_Værelser").text() },
+                //     { property: "Kvadratmeter", value: $("#selectedRange_Kvadratmeter").text() }
+                // );
 
                 // Display the selected items
-                console.log(selectedItems);
+                // console.log(selectedItems);
 
                 // Reset background and arrow for all options
                 $(".option").removeClass("selected-option");
@@ -1194,51 +1309,38 @@
                 // Filter items based on selected criteria
                 $(".filter-item").each(function () {
                     var item = $(this);
-                    var showItem = true;
+                    var showItem = false;
 
-                    // Check if the item matches all selected criteria
-                    selectedItems.forEach(function (criteria) {
+                    // Check if the item matches any selected criteria
+                    for (var i = 0; i < selectedItems.length; i++) {
+                        var criteria = selectedItems[i];
                         var property = criteria.property.toLowerCase().replace(/\s/g, ''); // Convert property to lowercase and remove spaces
-                        var value = criteria.value;
-
-                        // console.log({ property });
-                        // console.log({ value });
+                        var value = criteria.value.toLowerCase();
 
                         // Handle slider values differently
                         if (property.includes("antalværelser") || property.includes("kvadratmeter")) {
                             var sliderValue = item.data(property.replace(/ /g, ""));
-
                             // Check if slider value is within the specified range
                             var sliderRange = value.split(" - ");
                             var minRange = parseInt(sliderRange[0]);
                             var maxRange = parseInt(sliderRange[1]);
                             var sliderRangeValueInt = parseInt(sliderValue);
 
-                            console.log({ minRange });
-                            console.log({ maxRange });
-                            console.log({ sliderValue });
-                            console.log({ sliderRangeValueInt });
-                            console.log("Item Value: ", item.data(property.toLowerCase()));
+                            // console.log({minRange});
+                            // console.log({maxRange});
 
-                            if (sliderRangeValueInt < minRange || sliderRangeValueInt > maxRange) {
-                                showItem = false;
-                                console.log("Slider value is outside the range");
-                            } else {
-                                console.log("Slider value is within the range");
+                            if (sliderRangeValueInt >= minRange && sliderRangeValueInt <= maxRange) {
+                                showItem = true;
+                                break; // Exit the loop if the item matches
                             }
-
-                            console.log(`showItem: ${showItem}`);
                         } else {
                             // Handle regular values
-                            if (item.data(property.toLowerCase()).toLowerCase() !== value.toLowerCase()) {
-                                showItem = false;
+                            if (item.data(property.toLowerCase()).toString().toLowerCase() === value) {
+                                showItem = true;
+                                break; // Exit the loop if the item matches
                             }
                         }
-
-                        // console.log("Item Value: ", item.data(property.toLowerCase()).toLowerCase());
-                        // console.log("Expected Value: ", value.toLowerCase());
-
-                    });
+                    }
 
                     // Show or hide the item based on the filter result
                     if (showItem) {
@@ -1248,7 +1350,6 @@
                     }
                 });
             }
-
 
         });
 
