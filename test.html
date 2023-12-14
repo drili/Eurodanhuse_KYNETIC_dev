@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Multi-Select</title>
+
+    <style>
+        /* *** CSS Reset [TEMP: REMOVE ON UPLOAD] */
+        html,
+        body,
+        div,
+        span,
+        applet,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        acronym,
+        address,
+        big,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        img,
+        ins,
+        kbd,
+        q,
+        s,
+        samp,
+        small,
+        strike,
+        strong,
+        sub,
+        sup,
+        tt,
+        var,
+        b,
+        u,
+        i,
+        center,
+        dl,
+        dt,
+        dd,
+        ol,
+        ul,
+        li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        caption,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        td,
+        article,
+        aside,
+        canvas,
+        details,
+        embed,
+        figure,
+        figcaption,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        output,
+        ruby,
+        section,
+        summary,
+        time,
+        mark,
+        audio,
+        video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        blockquote,
+        q {
+            quotes: none;
+        }
+
+        blockquote:before,
+        blockquote:after,
+        q:before,
+        q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        /* *** Reset END */
+
+        /* *** topHeaderBanner */
+        #topHeaderBanner h1,
+        #topHeaderBanner h1 * {
+            font-size: 4rem;
+            line-height: 1.125;
+            max-width: 55%;
+            text-align: center;
+            color: #fff;
+            -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 25, 0.75));
+            filter: drop-shadow(0 0 8px rgba(0, 0, 25, 0.75));
+        }
+
+        #topHeaderBanner .top-header-container {
+            background-image: url("https://eurodan-huse.dk/media/10629/helstrupbakken_44_herning_u2.jpg?anchor=center&mode=crop&quality=70&width=1600&rnd=133259543320000000");
+            min-height: 500px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media screen and (max-width: 1400px) {
+
+            #topHeaderBanner h1,
+            #topHeaderBanner h1 * {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media screen and (max-width: 990px) {
+
+            #topHeaderBanner h1,
+            #topHeaderBanner h1 * {
+                font-size: 3rem;
+                line-height: 1;
+                max-width: 80%;
+            }
+
+            #topHeaderBanner .top-header-container {
+                min-height: 80vh;
+            }
+        }
+
+        @media screen and (max-width: 660px) {
+
+            #topHeaderBanner h1,
+            #topHeaderBanner h1 * {
+                font-size: 2rem;
+                line-height: 1;
+            }
+        }
+
+        /* *** Custom Select */
+        #filterButtons .custom-select {
+            position: relative;
+            width: 100%;
+            /* width: 200px; */
+        }
+
+        #filterButtons .select-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #001239;
+            /* Blue box color */
+            color: #fff;
+            padding: 15px 10px;
+            cursor: pointer;
+        }
+
+        #filterButtons .selected-items {
+            flex-grow: 1;
+        }
+
+        #filterButtons .arrow {
+            margin-left: 10px;
+        }
+
+        #filterButtons .options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            display: none;
+            background-color: #ecf0f1;
+            /* Light blue box color */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #filterButtons .option {
+            padding: 10px;
+            border-bottom: 1px solid #bdc3c7;
+            cursor: pointer;
+        }
+
+        #filterButtons .option:hover {
+            background-color: #bdc3c7;
+        }
+
+        #filterButtons .option:last-child {
+            border-bottom: none;
+        }
+
+        #filterButtons .selected-option {
+            background-color: #0084ba;
+            /* Highlight color for selected options */
+            color: #fff;
+            /* Text color for selected options */
+            position: relative;
+        }
+
+        #filterButtons .selected-option:after {
+            content: '\2713';
+            /* Right arrow character */
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        #filterButtons .filter-buttons-container {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        #filterButtons>div {
+            max-width: 1600px;
+            margin: 1rem auto;
+        }
+
+        @media screen and (max-width: 990px) {
+            #filterButtons .filter-buttons-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media screen and (max-width: 660px) {
+            #filterButtons .filter-buttons-container {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* *** Filter buttons response */
+        #filterButtonsResponse .filter-response-label-section {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        #filterButtonsResponse .filter-buttons-response {
+            display: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        #filterButtonsResponse #resetFilter {
+            background: #acacac;
+            padding: 10px 15px;
+            border: none;
+        }
+
+        #filterButtonsResponse .filter-response-icon {
+            font-size: 12px;
+        }
+
+        #filterButtonsResponse .filter-response-label {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 10px 15px;
+            border: 1px solid #acacac;
+        }
+
+        #filterButtonsResponse .filter-response-label-reset {
+            padding: 0;
+        }
+
+        #filterButtonsResponse>div {
+            max-width: 1600px;
+            margin: 1rem auto;
+            display: flex;
+            align-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        #filterButtonsResponse .filter-buttons-container {
+            display: none;
+        }
+
+        /* *** Filter items */
+        #filterItems .filter-items-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        #filterItems .filter-items-container .filter-item {
+            /* background-color: burlywood; */
+        }
+
+        #filterItems .filter-items-container {
+            max-width: 1600px;
+            margin: 4rem auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        #filterItems .filter-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #efefef;
+            padding: 45px 10px;
+            gap: 1.5rem;
+        }
+
+        #filterItems .filter-item img {
+            max-height: 175px;
+            object-fit: contain;
+        }
+
+        #filterItems .filter-item-image-span {
+            text-align: center;
+        }
+
+        #filterItems .filter-item span {
+            width: 80%;
+        }
+
+        #filterItems .filter-item-name {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 1rem;
+        }
+
+        #filterItems table {
+            width: 100%;
+        }
+
+        #filterItems table * {
+            font-size: 14px;
+        }
+
+        #filterItems table td:nth-child(2) {
+            font-weight: bold;
+        }
+
+        #filterItems table td div {
+            margin-bottom: 5px;
+        }
+
+        #filterItems .filter-item-cta {
+            text-align: right;
+            margin-top: 1rem;
+        }
+
+        #filterButtons button:hover {
+            cursor: pointer;
+        }
+
+        #filterItems .filter-item-cta a {
+            background-color: #0084ba;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+
+        @media screen and (max-width: 990px) {
+            #filterItems .filter-items-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media screen and (max-width: 660px) {
+            #filterItems .filter-items-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* *** Slider */
+        .options-slider {
+            padding: 10px 0;
+        }
+        .options-slider .ui-slider {
+            margin-bottom: 10px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+
+<body>
+    <section id="topHeaderBanner">
+        <div class="top-header-container">
+            <h1>Gå på opdagelse i vores plantegninger</h1>
+        </div>
+    </section>
+
+    <section id="filterButtons">
+        <div class="filter-buttons-container">
+
+            <div class="custom-select" id="customSelectHustype">
+                <div class="select-box">
+                    <div class="selected-items">Hustype</div>
+                    <div class="arrow">⮟</div>
+                </div>
+                <div class="options">
+                    <div class="option" data-id="Længehuse">Længehuse</div>
+                    <div class="option" data-id="Vinkelhuse">Vinkelhuse</div>
+                    <div class="option" data-id="Knækhuse">Knækhuse</div>
+                    <div class="option" data-id="H-huse">H-huse</div>
+
+                </div>
+            </div>
+
+            <div class="custom-select" id="customSelectHustype">
+                <div class="select-box">
+                    <div class="selected-items">Tagtype</div>
+                    <div class="arrow">⮟</div>
+                </div>
+                <div class="options">
+                    <div class="option" data-id="Funkis">Funkis</div>
+                    <div class="option" data-id="Ensidig taghældning">Ensidig taghældning</div>
+                    <div class="option" data-id="Valmtag">Valmtag</div>
+                    <div class="option" data-id="Saddeltag">Saddeltag</div>
+                </div>
+            </div>
+
+            <div class="custom-select" id="customSelectKvadratMeter">
+                <div class="select-box">
+                    <div class="selected-items">Kvadratmeter</div>
+                    <div class="arrow">⮟</div>
+                </div>
+                <div class="options options-slider">
+                    <div class="slider-container">
+                        <!-- <label for="valueSlider">Choose a range</label> -->
+                        <div id="valueSlider_Kvadratmeter"></div>
+                        <p>Valgte kvadratmeter: <span id="selectedRange_Kvadratmeter">80 m² - 250 m²</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="custom-select" id="customSelectTagtype">
+                <div class="select-box">
+                    <div class="selected-items">Antal værelser</div>
+                    <div class="arrow">⮟</div>
+                </div>
+                <div class="options">
+                    <div class="slider-container options-slider">
+                        <!-- <label for="valueSlider">Choose a range</label> -->
+                        <div id="valueSlider_Værelser"></div>
+                        <p>Valgte antal værelser: <span id="selectedRange_Værelser">5 - 15</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="custom-select" id="customSelectPlan">
+                <div class="select-box">
+                    <div class="selected-items">Plan</div>
+                    <div class="arrow">⮟</div>
+                </div>
+                <div class="options">
+                    <div class="option" data-id="1">1</div>
+                    <div class="option" data-id="1.5">1.5</div>
+                    <div class="option" data-id="2">2</div>
+                </div>
+            </div>
+
+            <div class="custom-select" id="customSelectPlan">
+                <div class="select-box">
+                    <div class="selected-items">Detaljer</div>
+                    <div class="arrow">⮟</div>
+                </div>
+                <div class="options">
+                    <div class="option" data-id="Alkove">Alkove</div>
+                    <div class="option" data-id="Badekar">Badekar</div>
+                    <div class="option" data-id="Børne Walk-in">Børne Walk-in</div>
+                    <div class="option" data-id="Carport">Carport</div>
+                    <div class="option" data-id="Depot">Depot</div>
+                    <div class="option" data-id="Dobbelt brus">Dobbelt brus</div>
+                    <div class="option" data-id="Garage">Garage</div>
+                    <div class="option" data-id="Gennemgående køkken alrum">Gennemgående køkken alrum</div>
+                    <div class="option" data-id="Kontor">Kontor</div>
+                    <div class="option" data-id="Multirum">Multirum</div>
+                    <div class="option" data-id="Overdækket indgang">Overdækket indgang</div>
+                    <div class="option" data-id="Overdækket terrasse">Overdækket terrasse</div>
+                    <div class="option" data-id="Sansevindue">Sansevindue</div>
+                    <div class="option" data-id="Walk-in">Walk-in</div>
+                    <div class="option" data-id="Walk-through">Walk-through</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="filterButtonsResponse">
+        <div class="filter-buttons-container">
+
+            <span class="">
+                <p><span class="filter-response-amount">0</span> match fundet</p>
+            </span>
+
+            <div class="filter-response-label-section">
+                <!-- <span id='${value}' class="filter-response-label"><i class="filter-response-icon">╳</i>
+                    <p>${value}</p>
+                </span> -->
+            </div>
+
+            <span class="filter-response-label filter-response-label-reset">
+                <button id="resetFilter">Nulstil søgning</button>
+            </span>
+
+        </div>
+    </section>
+
+    <section id="filterItems">
+        <div class="filter-items-container">
+
+            <div class="filter-item" class="filter-item" data-hustype="Længehuse" data-kvadratmeter="179" data-antalværelser="5"
+            data-detaljer="Dobbelt carport">
+                <span class="filter-item-image-span">
+                    <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
+                        alt="">
+                </span>
+            
+                <span>
+                    <div class="filter-item-name">L97</div>
+            
+                    <div class="filter-item-properties">
+                        <table class="filter-item-table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>Type</div>
+                                    </td>
+                                    <td>
+                                        <div>Længehus</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Kvadratmeter</div>
+                                    </td>
+                                    <td>
+                                        <div>179 m²</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Værelser</div>
+                                    </td>
+                                    <td>
+                                        <div>5</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Detaljer</div>
+                                    </td>
+                                    <td>
+                                        <div>Dobbelt carport</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </span>
+            
+                <span>
+                    <div class="filter-item-cta">
+                        <a href="#">Læs mere ➝</a>
+                    </div>
+                </span>
+            </div>
+
+            <div class="filter-item" data-hustype="Vinkelhuse" data-kvadratmeter="200" data-antalværelser="5"
+            data-detaljer="Garage">
+                <span class="filter-item-image-span">
+                    <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
+                        alt="">
+                </span>
+            
+                <span>
+                    <div class="filter-item-name">L97</div>
+            
+                    <div class="filter-item-properties">
+                        <table class="filter-item-table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>Type</div>
+                                    </td>
+                                    <td>
+                                        <div>Længehus</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Kvadratmeter</div>
+                                    </td>
+                                    <td>
+                                        <div>179 m²</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Værelser</div>
+                                    </td>
+                                    <td>
+                                        <div>5</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Detaljer</div>
+                                    </td>
+                                    <td>
+                                        <div>Dobbelt carport</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </span>
+            
+                <span>
+                    <div class="filter-item-cta">
+                        <a href="#">Læs mere ➝</a>
+                    </div>
+                </span>
+            </div>
+
+            <div class="filter-item" data-hustype="H-huse" data-kvadratmeter="150" data-antalværelser="6"
+            data-detaljer="Multirum">
+                <span class="filter-item-image-span">
+                    <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
+                        alt="">
+                </span>
+            
+                <span>
+                    <div class="filter-item-name">L97</div>
+            
+                    <div class="filter-item-properties">
+                        <table class="filter-item-table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>Type</div>
+                                    </td>
+                                    <td>
+                                        <div>Længehus</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Kvadratmeter</div>
+                                    </td>
+                                    <td>
+                                        <div>179 m²</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Værelser</div>
+                                    </td>
+                                    <td>
+                                        <div>5</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Detaljer</div>
+                                    </td>
+                                    <td>
+                                        <div>Dobbelt carport</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </span>
+            
+                <span>
+                    <div class="filter-item-cta">
+                        <a href="#">Læs mere ➝</a>
+                    </div>
+                </span>
+            </div>
+
+            <div class="filter-item" data-hustype="Længehuse" data-kvadratmeter="180" data-antalværelser="10"
+            data-detaljer="Overdækket terrasse">
+                <span class="filter-item-image-span">
+                    <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
+                        alt="">
+                </span>
+            
+                <span>
+                    <div class="filter-item-name">L97</div>
+            
+                    <div class="filter-item-properties">
+                        <table class="filter-item-table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>Type</div>
+                                    </td>
+                                    <td>
+                                        <div>Længehus</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Kvadratmeter</div>
+                                    </td>
+                                    <td>
+                                        <div>179 m²</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Værelser</div>
+                                    </td>
+                                    <td>
+                                        <div>5</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Detaljer</div>
+                                    </td>
+                                    <td>
+                                        <div>Dobbelt carport</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </span>
+            
+                <span>
+                    <div class="filter-item-cta">
+                        <a href="#">Læs mere ➝</a>
+                    </div>
+                </span>
+            </div>
+
+            <div class="filter-item" data-hustype="Vinkelhuse" data-kvadratmeter="220" data-antalværelser="5"
+            data-detaljer="Walk-in">
+                <span class="filter-item-image-span">
+                    <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
+                        alt="">
+                </span>
+            
+                <span>
+                    <div class="filter-item-name">L97</div>
+            
+                    <div class="filter-item-properties">
+                        <table class="filter-item-table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>Type</div>
+                                    </td>
+                                    <td>
+                                        <div>Længehus</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Kvadratmeter</div>
+                                    </td>
+                                    <td>
+                                        <div>179 m²</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Værelser</div>
+                                    </td>
+                                    <td>
+                                        <div>5</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Detaljer</div>
+                                    </td>
+                                    <td>
+                                        <div>Dobbelt carport</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </span>
+            
+                <span>
+                    <div class="filter-item-cta">
+                        <a href="#">Læs mere ➝</a>
+                    </div>
+                </span>
+            </div>
+
+            <div class="filter-item" data-hustype="Knækhuse" data-kvadratmeter="160" data-antalværelser="5"
+            data-detaljer="Badekar">
+                <span class="filter-item-image-span">
+                    <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
+                        alt="">
+                </span>
+            
+                <span>
+                    <div class="filter-item-name">L97</div>
+            
+                    <div class="filter-item-properties">
+                        <table class="filter-item-table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>Type</div>
+                                    </td>
+                                    <td>
+                                        <div>Længehus</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Kvadratmeter</div>
+                                    </td>
+                                    <td>
+                                        <div>179 m²</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Værelser</div>
+                                    </td>
+                                    <td>
+                                        <div>5</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Detaljer</div>
+                                    </td>
+                                    <td>
+                                        <div>Dobbelt carport</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </span>
+            
+                <span>
+                    <div class="filter-item-cta">
+                        <a href="#">Læs mere ➝</a>
+                    </div>
+                </span>
+            </div>
+
+            <div class="filter-item" data-hustype="H-huse" data-kvadratmeter="190" data-antalværelser="6"
+            data-detaljer="Gennemgående køkken alrum">
+                <span class="filter-item-image-span">
+                    <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
+                        alt="">
+                </span>
+            
+                <span>
+                    <div class="filter-item-name">L97</div>
+            
+                    <div class="filter-item-properties">
+                        <table class="filter-item-table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>Type</div>
+                                    </td>
+                                    <td>
+                                        <div>Længehus</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Kvadratmeter</div>
+                                    </td>
+                                    <td>
+                                        <div>179 m²</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Værelser</div>
+                                    </td>
+                                    <td>
+                                        <div>5</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Detaljer</div>
+                                    </td>
+                                    <td>
+                                        <div>Dobbelt carport</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </span>
+            
+                <span>
+                    <div class="filter-item-cta">
+                        <a href="#">Læs mere ➝</a>
+                    </div>
+                </span>
+            </div>
+
+            <div class="filter-item" data-hustype="Længehuse" data-kvadratmeter="199" data-antalværelser="9"
+            data-detaljer="Dobbelt brus">
+                <span class="filter-item-image-span">
+                    <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
+                        alt="">
+                </span>
+            
+                <span>
+                    <div class="filter-item-name">L97</div>
+            
+                    <div class="filter-item-properties">
+                        <table class="filter-item-table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>Type</div>
+                                    </td>
+                                    <td>
+                                        <div>Længehus</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Kvadratmeter</div>
+                                    </td>
+                                    <td>
+                                        <div>179 m²</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Værelser</div>
+                                    </td>
+                                    <td>
+                                        <div>5</div>
+                                    </td>
+                                </tr>
+            
+                                <tr>
+                                    <td>
+                                        <div>Detaljer</div>
+                                    </td>
+                                    <td>
+                                        <div>Dobbelt carport</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </span>
+            
+                <span>
+                    <div class="filter-item-cta">
+                        <a href="#">Læs mere ➝</a>
+                    </div>
+                </span>
+            </div>
+
+        </div>
+    </section>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            const arrayValuesResponse = [];
+
+            // *** Select options
+            $(".select-box").on("click", function (event) {
+                event.stopPropagation(); // Prevents the click event from reaching the document body
+
+                // Close other select boxes
+                $(".options").not($(this).next()).slideUp();
+
+                // Toggle the options of the current select box
+                $(this).next(".options").slideToggle();
+            });
+
+            $(".option").on("click", function () {
+                $(this).toggleClass("selected");
+                updateSelectedItems();
+            });
+
+            function updateSelectedItems() {
+                var selectedItems = $(".option.selected").map(function () {
+                    return $(this).text();
+                }).get();
+
+                // Add slider values to selectedItems
+                selectedItems.push($("#selectedRange_Værelser").text(), $("#selectedRange_Kvadratmeter").text());
+
+                // Display the selected items
+                console.log(selectedItems);
+
+                // Reset background and arrow for all options
+                $(".option").removeClass("selected-option");
+
+                // Add background and arrow to selected options
+                $(".option.selected").addClass("selected-option");
+
+                updateResponseLabels(selectedItems);
+                filterItems()
+
+                if (selectedItems.length > 0) {
+                    $("#filterButtonsResponse .filter-buttons-container").css({
+                        "display": "flex"
+                    })
+                } else {
+                    $("#filterButtonsResponse .filter-buttons-container").hide()
+                }
+                
+                // *** Update filter count
+                const filterAmount = $(".filter-response-amount");
+                const filterAmountValue = $(".filter-item:visible").length;
+                
+                filterAmount.text(filterAmountValue);
+            }
+
+            // Close the dropdown when clicking outside
+            $(document).on("click", function (event) {
+                if (!$(event.target).closest(".custom-select").length) {
+                    $(".options").slideUp();
+                }
+            });
+
+            // *** Slider
+            $("#valueSlider_Værelser").slider({
+                range: true,
+                min: 5,
+                max: 15,
+                values: [5, 15],
+                step: 1,
+                slide: function (event, ui) {
+                    $("#selectedRange_Værelser").text(ui.values[0] + " - " + ui.values[1]);
+                    updateSelectedItems();
+                }
+            });
+
+            $("#valueSlider_Kvadratmeter").slider({
+                range: true,
+                min: 80,
+                max: 250,
+                values: [80, 250],
+                step: 5,
+                slide: function (event, ui) {
+                    $("#selectedRange_Kvadratmeter").text(ui.values[0] + " - " + ui.values[1]);
+                    updateSelectedItems();
+                }
+            });
+
+            // *** Update response labels
+            function updateResponseLabels(selectedItems) {
+                var filterResponseLabelSection = $(".filter-response-label-section");
+                filterResponseLabelSection.empty();
+
+                selectedItems.forEach(function (value) {
+                    var labelHtml = `
+                        <span id='${value}' class="filter-response-label">
+                            <i class="filter-response-icon">×</i>
+                            <p>${value}</p>
+                        </span>
+                    `;
+                    filterResponseLabelSection.append(labelHtml);
+                });
+            }
+
+            // *** Remove all labels and reset selectedItems
+            function resetFilterOptions() {
+                $(".option").removeClass("selected");
+
+                // Reset slider values
+                $("#valueSlider_Værelser").slider("values", [5, 15]);
+                $("#valueSlider_Kvadratmeter").slider("values", [80, 250]);
+
+                updateSelectedItems();
+            }
+
+            $("#resetFilter").click(function () {
+                resetFilterOptions();
+            })
+
+            // *** Filter items
+            function filterItems() {
+                var selectedItems = $(".option.selected").map(function () {
+                    return { property: $(this).parent().prev(".select-box").find(".selected-items").text(), value: $(this).text() };
+                }).get();
+
+                // Add slider values to selectedItems
+                selectedItems.push(
+                    { property: "Antal værelser", value: $("#selectedRange_Værelser").text() },
+                    { property: "Kvadratmeter", value: $("#selectedRange_Kvadratmeter").text() }
+                );
+
+                // Display the selected items
+                console.log(selectedItems);
+
+                // Reset background and arrow for all options
+                $(".option").removeClass("selected-option");
+
+                // Add background and arrow to selected options
+                $(".option.selected").addClass("selected-option");
+
+                // Filter items based on selected criteria
+                $(".filter-item").each(function () {
+                    var item = $(this);
+                    var showItem = true;
+
+                    // Check if the item matches all selected criteria
+                    selectedItems.forEach(function (criteria) {
+                        var property = criteria.property.toLowerCase().replace(/\s/g, ''); // Convert property to lowercase and remove spaces
+                        var value = criteria.value;
+
+                        // console.log({ property });
+                        // console.log({ value });
+
+                        // Handle slider values differently
+                        if (property.includes("antalværelser") || property.includes("kvadratmeter")) {
+                            var sliderValue = item.data(property.replace(/ /g, ""));
+
+                            // Check if slider value is within the specified range
+                            var sliderRange = value.split(" - ");
+                            var minRange = parseInt(sliderRange[0]);
+                            var maxRange = parseInt(sliderRange[1]);
+                            var sliderRangeValueInt = parseInt(sliderValue);
+
+                            console.log({ minRange });
+                            console.log({ maxRange });
+                            console.log({ sliderValue });
+                            console.log({ sliderRangeValueInt });
+                            console.log("Item Value: ", item.data(property.toLowerCase()));
+
+                            if (sliderRangeValueInt < minRange || sliderRangeValueInt > maxRange) {
+                                showItem = false;
+                                console.log("Slider value is outside the range");
+                            } else {
+                                console.log("Slider value is within the range");
+                            }
+
+                            console.log(`showItem: ${showItem}`);
+                        } else {
+                            // Handle regular values
+                            if (item.data(property.toLowerCase()).toLowerCase() !== value.toLowerCase()) {
+                                showItem = false;
+                            }
+                        }
+
+                        // console.log("Item Value: ", item.data(property.toLowerCase()).toLowerCase());
+                        // console.log("Expected Value: ", value.toLowerCase());
+
+                    });
+
+                    // Show or hide the item based on the filter result
+                    if (showItem) {
+                        item.show();
+                    } else {
+                        item.hide();
+                    }
+                });
+            }
+
+
+        });
+
+    </script>
+</body>
+
+</html>
