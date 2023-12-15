@@ -180,7 +180,7 @@
             }
 
             #topHeaderBanner .top-header-container {
-                min-height: 80vh;
+                /* min-height: 80vh; */
             }
         }
 
@@ -197,6 +197,11 @@
         #filterButtons .custom-select {
             position: relative;
             width: 100%;
+            /* width: 200px; */
+        }
+
+        #filterButtons .custom-select .options{
+            z-index: 999;
             /* width: 200px; */
         }
 
@@ -297,8 +302,13 @@
             align-items: center;
         }
 
+        #filterButtonsResponse .filter-response-amount-wrapper .filter-response-amount {
+            font-weight: bold;
+            color: #83bce4;
+        }
+
         #filterButtonsResponse #resetFilter {
-            background: #acacac;
+            background: #efefef;
             padding: 10px 15px;
             border: none;
         }
@@ -313,7 +323,7 @@
             align-items: center;
             gap: 1rem;
             padding: 10px 15px;
-            border: 1px solid #acacac;
+            border: 1px solid #efefef;
         }
 
         #filterButtonsResponse .filter-response-label-reset {
@@ -436,7 +446,7 @@
         }
 
         #filterItems .filter-item.show-item-kvadratmeter {
-            display: block;
+            display: flex;
         }
 
         #filterItems .filter-item.hide-item-kvadratmeter {
@@ -444,7 +454,7 @@
         }
 
         #filterItems .filter-item.show-item-antalværelser {
-            display: block;
+            display: flex;
         }
 
         #filterItems .filter-item.hide-item-antalværelser {
@@ -455,7 +465,23 @@
         .hide-item-antalværelser.show-item-kvadratmeter,
         .hide-item-kvadratmeter.show-item-antalværelser,
         .show-item-kvadratmeter.hide-item-antalværelser {
-            display: block;
+            display: flex;
+        }
+
+        @media screen and (max-width: 660px) {
+            #topHeaderBanner .top-header-container {
+                min-height: 40vh;
+                max-height: 40vh;
+            }
+            #filterButtons .filter-buttons-container {
+                gap: 0.1rem;
+            }
+            #filterItems .filter-items-container {
+                padding: 0 20px;
+            }
+            #filterButtons .filter-buttons-container {
+                margin-top: 0 !important;
+            }
         }
     </style>
 
@@ -570,7 +596,7 @@
     <section id="filterButtonsResponse">
         <div class="filter-buttons-container">
 
-            <span class="">
+            <span class="filter-response-amount-wrapper">
                 <p><span class="filter-response-amount">0</span> match fundet</p>
             </span>
 
@@ -598,8 +624,14 @@
     <section id="filterItems">
         <div class="filter-items-container">
 
-            <div class="filter-item" class="filter-item" data-hustype="Længehuse" data-kvadratmeter="179"
-                data-antalværelser="5" data-detaljer="Dobbelt carport">
+            <div class="filter-item" class="filter-item" 
+                data-hustype="Længehuse" 
+                data-kvadratmeter="179"
+                data-antalværelser="5" 
+                data-detaljer="Dobbelt carport" 
+                data-tagtype="Funkis" 
+                data-plan="1"
+            >
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
@@ -659,7 +691,7 @@
             </div>
 
             <div class="filter-item" data-hustype="Vinkelhuse" data-kvadratmeter="200" data-antalværelser="5"
-                data-detaljer="Garage">
+                data-detaljer="Garage" data-tagtype="Ensidig taghældning" data-plan="1.5">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
@@ -719,7 +751,7 @@
             </div>
 
             <div class="filter-item" data-hustype="H-huse" data-kvadratmeter="150" data-antalværelser="6"
-                data-detaljer="Multirum">
+                data-detaljer="Multirum" data-tagtype="Valmtag" data-plan="2">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
@@ -779,7 +811,7 @@
             </div>
 
             <div class="filter-item" data-hustype="Længehuse" data-kvadratmeter="180" data-antalværelser="10"
-                data-detaljer="Overdækket terrasse">
+                data-detaljer="Overdækket terrasse" data-tagtype="Saddeltag" data-plan="2">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
@@ -839,7 +871,7 @@
             </div>
 
             <div class="filter-item" data-hustype="Vinkelhuse" data-kvadratmeter="220" data-antalværelser="10"
-                data-detaljer="Walk-in">
+                data-detaljer="Walk-in" data-tagtype="Valmtag" data-plan="1.5">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
@@ -899,7 +931,7 @@
             </div>
 
             <div class="filter-item" data-hustype="Knækhuse" data-kvadratmeter="160" data-antalværelser="5"
-                data-detaljer="Badekar">
+                data-detaljer="Badekar" data-tagtype="Funkis" data-plan="1">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
@@ -959,7 +991,7 @@
             </div>
 
             <div class="filter-item" data-hustype="H-huse" data-kvadratmeter="190" data-antalværelser="6"
-                data-detaljer="Gennemgående køkken alrum">
+                data-detaljer="Gennemgående køkken alrum" data-tagtype="Valmtag" data-plan="1.5">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
@@ -1019,7 +1051,7 @@
             </div>
 
             <div class="filter-item" data-hustype="Længehuse" data-kvadratmeter="199" data-antalværelser="9"
-                data-detaljer="Dobbelt brus">
+                data-detaljer="Dobbelt brus" data-tagtype="Valmtag" data-plan="2">
                 <span class="filter-item-image-span">
                     <img src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.6435-9/186481275_1918845591624703_5105296470605667533_n.jpg?stp=dst-jpg_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=2Y_ghUAC28kAX82sNQx&_nc_ht=scontent.fcph2-1.fna&oh=00_AfC3y7HlhX_66aa7VMYIt4o3-3N9PXhdTy6CspDnxyM8pg&oe=659F90D0"
                         alt="">
@@ -1211,6 +1243,12 @@
                         $(this).addClass("hide-item-kvadratmeter");
                         $(this).removeClass("show-item-kvadratmeter");
                     }
+
+                    // *** Update filter count
+                    const filterAmount = $(".filter-response-amount");
+                    const filterAmountValue = $(".filter-item:visible").length;
+
+                    filterAmount.text(filterAmountValue);
                 });
             }
 
@@ -1251,6 +1289,12 @@
                         $(this).removeClass("show-item-antalværelser");
                     }
                 });
+
+                // *** Update filter count
+                const filterAmount = $(".filter-response-amount");
+                const filterAmountValue = $(".filter-item:visible").length;
+
+                filterAmount.text(filterAmountValue);
             }
 
             // *** Update response labels
@@ -1304,16 +1348,10 @@
                 //     { property: "Kvadratmeter", value: $("#selectedRange_Kvadratmeter").text() }
                 // );
 
-                // Display the selected items
                 // console.log(selectedItems);
-
-                // Reset background and arrow for all options
                 $(".option").removeClass("selected-option");
-
-                // Add background and arrow to selected options
                 $(".option.selected").addClass("selected-option");
 
-                // Filter items based on selected criteria
                 $(".filter-item").each(function () {
                     var item = $(this);
                     var showItem = false;
@@ -1349,12 +1387,21 @@
                         }
                     }
 
-                    // Show or hide the item based on the filter result
-                    if (showItem) {
-                        item.show();
+                    if (selectedItems.length > 0) {
+                        if (showItem) {
+                            item.show();
+                        } else {
+                            item.hide();
+                        }
                     } else {
-                        item.hide();
+                        $(".filter-item").each(function () {
+                            $(".filter-items-container").removeClass("filter-active-kvadratmeter");
+                            $(".filter-items-container").removeClass("filter-active-antalværelser");
+                            $(this).removeClass("show-item-kvadratmeter hide-item-kvadratmeter show-item-antalværelser hide-item-antalværelser");
+                            $(this).show();
+                        });
                     }
+
                 });
             }
 
