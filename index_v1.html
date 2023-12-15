@@ -7,139 +7,6 @@
     <title>Custom Multi-Select</title>
 
     <style>
-        /* *** CSS Reset [TEMP: REMOVE ON UPLOAD] */
-        html,
-        body,
-        div,
-        span,
-        applet,
-        object,
-        iframe,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        blockquote,
-        pre,
-        a,
-        abbr,
-        acronym,
-        address,
-        big,
-        cite,
-        code,
-        del,
-        dfn,
-        em,
-        img,
-        ins,
-        kbd,
-        q,
-        s,
-        samp,
-        small,
-        strike,
-        strong,
-        sub,
-        sup,
-        tt,
-        var,
-        b,
-        u,
-        i,
-        center,
-        dl,
-        dt,
-        dd,
-        ol,
-        ul,
-        li,
-        fieldset,
-        form,
-        label,
-        legend,
-        table,
-        caption,
-        tbody,
-        tfoot,
-        thead,
-        tr,
-        th,
-        td,
-        article,
-        aside,
-        canvas,
-        details,
-        embed,
-        figure,
-        figcaption,
-        footer,
-        header,
-        hgroup,
-        menu,
-        nav,
-        output,
-        ruby,
-        section,
-        summary,
-        time,
-        mark,
-        audio,
-        video {
-            margin: 0;
-            padding: 0;
-            border: 0;
-            font-size: 100%;
-            font: inherit;
-            vertical-align: baseline;
-        }
-
-        article,
-        aside,
-        details,
-        figcaption,
-        figure,
-        footer,
-        header,
-        hgroup,
-        menu,
-        nav,
-        section {
-            display: block;
-        }
-
-        body {
-            line-height: 1;
-        }
-
-        ol,
-        ul {
-            list-style: none;
-        }
-
-        blockquote,
-        q {
-            quotes: none;
-        }
-
-        blockquote:before,
-        blockquote:after,
-        q:before,
-        q:after {
-            content: '';
-            content: none;
-        }
-
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-
-        /* *** Reset END */
-
         /* *** topHeaderBanner */
         #topHeaderBanner h1,
         #topHeaderBanner h1 * {
@@ -1124,12 +991,9 @@
 
             // *** Select options
             $(".select-box").on("click", function (event) {
-                event.stopPropagation(); // Prevents the click event from reaching the document body
+                event.stopPropagation();
 
-                // Close other select boxes
                 $(".options").not($(this).next()).slideUp();
-
-                // Toggle the options of the current select box
                 $(this).next(".options").slideToggle();
             });
 
@@ -1143,16 +1007,10 @@
                     return $(this).text();
                 }).get();
 
-                // Add slider values to selectedItems
                 // selectedItems.push($("#selectedRange_Værelser").text(), $("#selectedRange_Kvadratmeter").text());
+                // console.log(selectedItems);
 
-                // Display the selected items
-                console.log(selectedItems);
-
-                // Reset background and arrow for all options
                 $(".option").removeClass("selected-option");
-
-                // Add background and arrow to selected options
                 $(".option.selected").addClass("selected-option");
 
                 updateResponseLabels(selectedItems);
@@ -1173,7 +1031,7 @@
                 filterAmount.text(filterAmountValue);
             }
 
-            // Close the dropdown when clicking outside
+            // *** Close dropdown
             $(document).on("click", function (event) {
                 if (!$(event.target).closest(".custom-select").length) {
                     $(".options").slideUp();
@@ -1234,12 +1092,12 @@
                     $(".filter-response-label-section-kvadratmeter").html(labelHtml);
 
                     if (sliderValue >= minRange && sliderValue <= maxRange) {
-                        console.log(`SHOW`);
+                        // console.log(`SHOW`);
                         $(this).addClass("show-item-kvadratmeter");
                         $(this).removeClass("hide-item-kvadratmeter");
                         arrayValuesReponseKvadratmeter.push(item);
                     } else {
-                        console.log(`SHOW`);
+                        // console.log(`SHOW`);
                         $(this).addClass("hide-item-kvadratmeter");
                         $(this).removeClass("show-item-kvadratmeter");
                     }
@@ -1279,12 +1137,12 @@
                     $(".filter-response-label-section-antalværelser").html(labelHtml);
 
                     if (sliderValue >= minRange && sliderValue <= maxRange) {
-                        console.log(`SHOW`);
+                        // console.log(`SHOW`);
                         $(this).addClass("show-item-antalværelser");
                         $(this).removeClass("hide-item-antalværelser");
                         arrayValuesReponseAntalVærelser.push(item);
                     } else {
-                        console.log(`SHOW`);
+                        // console.log(`SHOW`);
                         $(this).addClass("hide-item-antalværelser");
                         $(this).removeClass("show-item-antalværelser");
                     }
@@ -1317,7 +1175,7 @@
             function resetFilterOptions() {
                 $(".option").removeClass("selected");
 
-                // Reset slider values
+                // *** Reset slider values
                 $("#valueSlider_Værelser").slider("values", [5, 15]);
                 $("#valueSlider_Kvadratmeter").slider("values", [80, 250]);
 
@@ -1336,13 +1194,11 @@
 
             // *** Filter items
             function filterItems() {
-                // TODO: When kvadratmeter or antalværelser is applied, reset them.
 
                 var selectedItems = $(".option.selected").map(function () {
                     return { property: $(this).parent().prev(".select-box").find(".selected-items").text(), value: $(this).text() };
                 }).get();
 
-                // Add slider values to selectedItems
                 // selectedItems.push(
                 //     { property: "Antal værelser", value: $("#selectedRange_Værelser").text() },
                 //     { property: "Kvadratmeter", value: $("#selectedRange_Kvadratmeter").text() }
@@ -1356,16 +1212,13 @@
                     var item = $(this);
                     var showItem = false;
 
-                    // Check if the item matches any selected criteria
                     for (var i = 0; i < selectedItems.length; i++) {
                         var criteria = selectedItems[i];
-                        var property = criteria.property.toLowerCase().replace(/\s/g, ''); // Convert property to lowercase and remove spaces
+                        var property = criteria.property.toLowerCase().replace(/\s/g, '');
                         var value = criteria.value.toLowerCase();
 
-                        // Handle slider values differently
                         if (property.includes("antalværelser") || property.includes("kvadratmeter")) {
                             var sliderValue = item.data(property.replace(/ /g, ""));
-                            // Check if slider value is within the specified range
                             var sliderRange = value.split(" - ");
                             var minRange = parseInt(sliderRange[0]);
                             var maxRange = parseInt(sliderRange[1]);
@@ -1376,13 +1229,13 @@
 
                             if (sliderRangeValueInt >= minRange && sliderRangeValueInt <= maxRange) {
                                 showItem = true;
-                                break; // Exit the loop if the item matches
+                                break;
                             }
                         } else {
                             // Handle regular values
                             if (item.data(property.toLowerCase()).toString().toLowerCase() === value) {
                                 showItem = true;
-                                break; // Exit the loop if the item matches
+                                break;
                             }
                         }
                     }
